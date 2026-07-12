@@ -1,0 +1,129 @@
+ body {
+   font-family: Arial, sans-serif;
+   background: #1a1a2e;
+   color: #eee;
+   display: flex;
+   justify-content: center;
+   padding-top: 50px;
+ }
+
+ .container {
+   width: 100%;
+   max-width: 400px;
+   padding: 0 20px;
+ }
+
+ h1 {
+   text-align: center;
+ }
+
+ .input-row {
+   display: flex;
+   gap: 8px;
+   margin-bottom: 20px;
+ }
+
+ #task-input,
+ #deadline-input {
+   flex: 1;
+   padding: 10px;
+   border: none;
+   border-radius: 6px;
+   font-size: 16px;
+ }
+
+ #deadline-input {
+   flex: 0 0 auto;
+ }
+
+ #add-btn {
+   padding: 10px 16px;
+   border: none;
+   border-radius: 6px;
+   background: #e94560;
+   color: white;
+   font-size: 16px;
+   cursor: pointer;
+ }
+
+ #task-list li {
+   background: #16213e;
+   padding: 12px;
+   border-radius: 6px;
+   margin-bottom: 8px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+ }
+
+ #task-list li button {
+   background: none;
+   border: none;
+   color: #e94560;
+   font-size: 16px;
+   cursor: pointer;
+ }
+
+ #task-list {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+ }
+
+
+ #advice-box {
+   position: fixed;
+   bottom: 20px;
+   right: 20px;
+   max-width: 300px;
+   background: #16213e;
+   color: white;
+   padding: 16px;
+   border-radius: 10px;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+   transform: translateY(150%);
+   transition: transform 0.3s ease;
+ }
+
+ #advice-box.visible {
+   transform: translateY(0);
+ }
+
+ @media (max-width: 480px) {
+   body {
+     padding-top: 20px;
+   }
+
+   .container {
+     padding: 0 12px;
+   }
+
+   .input-row {
+     flex-direction: column;
+   }
+ }
+
+ #advice-box {
+   width: 280px;
+   max-width: calc(100% - 40px);
+   padding: 0;
+   border-radius: 16px;
+   overflow: hidden;
+ }
+
+ #advice-box .advice-header {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   padding: 10px 14px;
+   background: #0f1729;
+   font-size: 13px;
+   font-weight: bold;
+   color: #e94560;
+ }
+
+ #advice-box .advice-body {
+   padding: 14px;
+   font-size: 14px;
+   line-height: 1.5;
+ }

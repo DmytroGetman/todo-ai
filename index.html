@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#e94560">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do</title>
+  <link rel="stylesheet" href="style.css">
+  </head>
+
+<body>
+
+  <div class="container">
+    <h1>📝 To-Do list</h1>
+    <div class="input-row">
+      <input type="text" id="task-input" placeholder="Новая задача...">
+      <input type="datetime-local" id="deadline-input">
+      <button id="add-btn">+</button>
+    </div>
+
+    <ul id="task-list"></ul>
+  </div>
+  <div id="advice-box">
+    <div class="advice-header">🧠 AI-совет</div>
+    <div class="advice-body" id="advice-text"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
