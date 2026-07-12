@@ -36,7 +36,7 @@ function render() {
             const response = await fetch('/ask-ai', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ taskText: tasks[i].text, deadline: tasks[i].deadline })
+                body: JSON.stringify({ taskText: tasks[i].text, deadline: tasks[i].deadline, lang: navigator.language })
             });
             const data = await response.json();
             document.getElementById('advice-text').textContent = data.advice;

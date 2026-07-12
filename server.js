@@ -9,6 +9,7 @@ const PORT = 3000;
 app.post('/ask-ai', async (req, res) => {
     const taskText = req.body.taskText;
     const deadline = req.body.deadline;
+    const lang = req.body.lang;
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -17,7 +18,7 @@ app.post('/ask-ai', async (req, res) => {
         },
         body: JSON.stringify({
             model: 'llama-3.3-70b-versatile',
-            messages: [{ role: 'user', content: `Ты — тёплый, поддерживающий друг. Помоги мне начать задачу "${taskText}" (дедлайн: ${deadline}). Дай короткий совет с одним конкретным первым действием — не общими словами, а что именно сделать прямо сейчас. Пиши на "ты", простыми словами, без канцелярита и без вступлений вроде "конечно" или "хорошо". Уложись в 15-20 слов, 1-2 предложения.` }]
+            messages: [{ role: 'user', content: `Ты — тёплый, поддерживающий друг. Помоги мне начать задачу "${taskText}" (дедлайн: ${deadline}). Дай короткий совет с одним конкретным первым действием — не общими словами, а что именно сделать прямо сейчас. Пиши на "ты", простыми словами, без канцелярита и без вступлений вроде "конечно" или "хорошо". Уложись в 15-20 слов, 1-2 предложения. Отвечай на языке с кодом "${lang}"  .` }]
         })
     });
     const data = await response.json();
