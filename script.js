@@ -16,7 +16,7 @@ function render() {
     for (let i = 0; i < tasks.length; i++) {
         const li = document.createElement('li');
         const d = new Date(tasks[i].deadline);
-        const formatted = d.toLocaleString('ru-RU', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+        const formatted = d.toLocaleString('en-GB', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
         li.textContent = tasks[i].text + ' — ' + formatted;
         list.appendChild(li);
 
@@ -65,7 +65,7 @@ setInterval(function () {
         const deadline = new Date(tasks[i].deadline);
         const minutes = Math.floor((deadline - now) / 1000 / 60)
         if (minutes < 60 && minutes > 0) {
-            new Notification('🔥 ' + tasks[i].text + ' — осталось ' + minutes + ' мин!');
+            new Notification(tasks[i].text + ' — ' + minutes + ' min left!');
         }
         console.log(tasks[i].text, minutes);
     }
