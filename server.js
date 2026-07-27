@@ -10,23 +10,34 @@ app.post('/ask-ai', async (req, res) => {
     const taskText = req.body.taskText;
     const deadline = req.body.deadline;
     const lang = req.body.lang;
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${process.env.GROQ_API_KEY}`
-        },
-        body: JSON.stringify({
-            model: 'llama-3.3-70b-versatile',
-            messages: [{ role: 'user', content: `IMPORTANT: You must write your entire response in the language with code "${lang}" — this rule overrides everything else in this prompt, no exceptions.
+
+    try {
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.GROQ_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: 'llama-3.3-70b-versatile',
+                messages: [{ role: 'user', content: `IMPORTANT: You must write your entire response in the language with code "${lang}" — this rule overrides everything else in this prompt, no exceptions.
 
 Ты — тёплый, поддерживающий друг. Помоги мне начать задачу "${taskText}" (дедлайн: ${deadline}). Дай короткий совет с одним конкретным первым действием — не общими словами, а что именно сделать прямо сейчас. Пиши на "ты", простыми словами, без канцелярита и без вступлений вроде "конечно" или "хорошо". Уложись в 15-20 слов, 1-2 предложения.
 
 REMINDER: Write your final answer only in the language with code "${lang}".` }]
-        })
-    });
-    const data = await response.json();
-    const advice = data.choices[0].message.content;
-    res.json({ advice: advice });
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Groq API responded with status ${response.status}`);
+        }
+
+        const data = await response.json();
+        const advice = data.choices[0].message.content;
+        res.json({ advice: advice });
+    } catch (error) {
+        console.error('Ошибка при запросе к Groq:', error.message);
+        res.status(500).json({ advice: null, error: 'Failed to get AI advice' });
+    }
 });
 app.listen(PORT, () => console.log(`Сервер запущен на порту ${PORT}`));

@@ -29,18 +29,34 @@ function render() {
         });
         li.appendChild(del);
 
-        const advice = document.createElement('button');
-        advice.textContent = "🧠"
-        advice.addEventListener("click", async function () {
+       advice.addEventListener("click", async function () {
             const advice2 = document.getElementById('advice-box');
-            const response = await fetch('/ask-ai', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ taskText: tasks[i].text, deadline: tasks[i].deadline, lang: navigator.language })
-            });
-            const data = await response.json();
-            document.getElementById('advice-text').textContent = data.advice;
+            const adviceText = document.getElementById('advice-text');
+
+            advice.disabled = true;
+            advice.textContent = "⏳";
+            adviceText.textContent = "Thinking...";
             advice2.classList.add("visible");
+
+            try {
+                const response = await fetch('/ask-ai', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ taskText: tasks[i].text, deadline: tasks[i].deadline, lang: navigator.language })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Server error');
+                }
+
+                const data = await response.json();
+                adviceText.textContent = data.advice;
+            } catch (error) {
+                adviceText.textContent = "Couldn't get advice. Please try again later.";
+            } finally {
+                advice.disabled = false;
+                advice.textContent = "🧠";
+            }
         });
         li.appendChild(advice);
     }
