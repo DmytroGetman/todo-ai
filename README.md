@@ -61,6 +61,7 @@ package.json    - dependencies
 - A real database instead of localStorage
 - Editing existing tasks
 - Preventing duplicate AI requests if the button is clicked too fast
+- Handle already-missed deadlines differently in the AI prompt
 
 ## Screenshot
 ![To-Do app with AI advice panel](screenshot.png)
