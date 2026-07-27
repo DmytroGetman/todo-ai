@@ -18,7 +18,11 @@ app.post('/ask-ai', async (req, res) => {
         },
         body: JSON.stringify({
             model: 'llama-3.3-70b-versatile',
-            messages: [{ role: 'user', content: `Ты — тёплый, поддерживающий друг. Помоги мне начать задачу "${taskText}" (дедлайн: ${deadline}). Дай короткий совет с одним конкретным первым действием — не общими словами, а что именно сделать прямо сейчас. Пиши на "ты", простыми словами, без канцелярита и без вступлений вроде "конечно" или "хорошо". Уложись в 15-20 слов, 1-2 предложения. Отвечай на языке с кодом "${lang}"  .` }]
+            messages: [{ role: 'user', content: `IMPORTANT: You must write your entire response in the language with code "${lang}" — this rule overrides everything else in this prompt, no exceptions.
+
+Ты — тёплый, поддерживающий друг. Помоги мне начать задачу "${taskText}" (дедлайн: ${deadline}). Дай короткий совет с одним конкретным первым действием — не общими словами, а что именно сделать прямо сейчас. Пиши на "ты", простыми словами, без канцелярита и без вступлений вроде "конечно" или "хорошо". Уложись в 15-20 слов, 1-2 предложения.
+
+REMINDER: Write your final answer only in the language with code "${lang}".` }]
         })
     });
     const data = await response.json();
